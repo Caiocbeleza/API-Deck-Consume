@@ -51,15 +51,32 @@ public class Controller {
 	public Integer sumHand() {
 		DrawCardsDTO draw =  this.drawCards();
 		List<CardDTO> cards = draw.getCards();
-		List<String> cardValues = new ArrayList<String>();
-		Integer cardSum = 0;
-		int i = 0;
-		for (CardDTO card : cards) {
-			cardValues.add(card.getValue());
-			System.out.println(cardValues);
-			cardSum +=  Integer.parseInt(card.getValue());
+		int sum = 0;
+		
+		for(CardDTO card : cards) {
+			sum += getValueAsNumber(card.getValue());
+			System.out.println(card.getValue());
 		}
-		return cardSum;
+		
+		return sum;
+	}
+	
+	private int getValueAsNumber(String value) {
+		if(value.equals("ACE")) {
+			return 1;
+		}
+		if(value.equals("JACK")) {
+			return 11;
+		}
+		if(value.equals("QUEEN")) {
+			return 12;
+		}
+		if(value.equals("KING")) {
+			return 13;
+		}
+		else {
+			return Integer.parseInt(value);
+		}
 		
 	}
 	
