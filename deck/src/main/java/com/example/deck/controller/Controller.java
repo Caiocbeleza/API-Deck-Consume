@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,8 @@ import com.example.deck.DTO.DrawCardsDTO;
 import com.example.deck.Enum.Cards;
 import com.example.deck.Enum.Cards.CardsEnum;
 import com.example.deck.client.ClientFeign;
+import com.example.deck.model.Deck;
+import com.example.deck.repository.DeckRepository;
 import com.example.deck.service.DeckService;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +33,9 @@ public class Controller {
 	
 	@Autowired
 	private DeckService deckService;
+	
+	@Autowired
+	private DeckRepository deckRepository;
 	
 	@RequestMapping("shuffle")
 	public DeckDTO shuffleDeck() {
@@ -54,6 +61,19 @@ public class Controller {
 		}
 		return cardSum;
 		
+	}
+	
+	@PostMapping("new-deck")
+	public ResponseEntity<Deck> createDeck(@RequestBody DeckDTO deck){
+		try {
+		deck = this.shuffleDeck();	
+		Deck _deck = deckRepository
+				.save(new Deck(deck.getShuffled(), deck.getDeck_id(),
+						deck.getRemaining()));
+		return new ResponseEntity<>(_deck, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	

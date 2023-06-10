@@ -15,6 +15,13 @@ public class DeckDTO {
 	private Boolean shuffled;
 	private Integer remaining;
 	
+	public DeckDTO(Boolean success, String deck_id, Boolean shuffled, Integer remaining) {
+		this.success = success;
+		this.deck_id = deck_id;
+		this.shuffled = shuffled;
+		this.remaining = remaining;
+	}
+	
 	
 	
 	public Boolean getSuccess() {

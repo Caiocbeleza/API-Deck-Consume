@@ -11,13 +11,13 @@ import com.example.deck.DTO.DeckDTO;
 import com.example.deck.DTO.DrawCardsDTO;
 import com.example.deck.DTO.CardDTO;
 
-@FeignClient(name = "deck", url = "https://deckofcardsapi.com/api/deck/new")
+@FeignClient(name = "deck", url = "https://deckofcardsapi.com/api/deck/0o6545th6v9c")
 public interface ClientFeign {
 	
 	@GetMapping(value = "/shuffle")
 	DeckDTO shuffleDeck();
 	
-	@GetMapping(value = "/draw/?count=5")
+	@GetMapping(value = "/draw/?count=6")
 	DrawCardsDTO drawCards();
 	
 
