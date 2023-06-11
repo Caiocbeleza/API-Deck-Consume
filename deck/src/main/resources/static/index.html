@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Card Game</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Deck Shuffler</h1>
-                
-        <form id="shuffleForm">
+    <div class="container" style="text-align:center">
+        <h1>Desafio das Cartas</h1>
+        <div class="btn-group">       
+        <form id="shuffleForm">        
             <div class="form-group">
                 <label for="deckId">Deck ID:</label>
-                <input type="text" class="form-control" id="deckId" name="deckId" required>
+                <input type="text" class="form-control" id="deckId" name="deckId">
             </div>
-            <button type="submit" class="btn btn-primary">Shuffle</button>
-            
-        </form>
-             <div>
-            	<button class="btn btn-primary" id="createButton">Create New Deck</button>
-        	</div>
- 		<div>
-            <button class="btn btn-primary" id="playButton">Calculate</button>
-        </div>
-        
+            <button type="submit" class="btn btn-primary" style="display: inline-block;">Baralhar</button>
+            <button class="btn btn-primary" id="createButton">Novo Baralho</button> 		
+            <button class="btn btn-primary" id="playButton" >Jogar</button>            
+        </form>       
         <div id="result" style="display: none;">
             <h3>Resultado:</h3>
             <p id="resultText"></p>
@@ -33,9 +29,8 @@
             <h3>Novo Deck id:</h3>
             <p id="resultTextNewDeck"></p>
         </div>
-    </div>
-    </div>
-    
+        </div>   
+        </div> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -77,8 +72,7 @@
         }
         
         $(document).ready(function() {
-            $('#playButton').click(function(event) {
-            	event.preventDefault();
+            $('#playButton').click(function() {
             	var deckId = $('#deckId').val();
                 calculateBiggestSum(deckId);
             });

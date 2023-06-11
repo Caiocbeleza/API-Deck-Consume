@@ -83,13 +83,13 @@ public class Controller {
         else {
         	String winner = "";
         	if (player1Sum == maxSum) {
-                winner = "O Vencedor é Jogador 1 " + "com " + maxSum + " pontos!";
+                winner = "O Vencedor é o Jogador 1 " + "com " + maxSum + " pontos!";
             } else if (player2Sum == maxSum) {
-            	winner = "O Vencedor é Jogador 2 " + "com " + maxSum + " pontos!";
+            	winner = "O Vencedor é o Jogador 2 " + "com " + maxSum + " pontos!";
             } else if (player3Sum == maxSum) {
-            	winner = "O Vencedor é Jogador 3 " + "com " + maxSum + " pontos!";
+            	winner = "O Vencedor é o Jogador 3 " + "com " + maxSum + " pontos!";
             } else if (player4Sum == maxSum) {
-            	winner = "O Vencedor é Jogador 4 " + "com " + maxSum + " pontos!";
+            	winner = "O Vencedor é o Jogador 4 " + "com " + maxSum + " pontos!";
             }
         	
         	return winner;
