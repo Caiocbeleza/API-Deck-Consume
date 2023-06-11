@@ -26,6 +26,6 @@ spring.datasource.password=<senha_postgres>
 
 6. Com a aplicação rodando, para criar um novo baralho e salvar seu id no seu database, acessar  http://localhost:8080/create
 
-7. Para mostrar a mão vencedora(com a soma maior de cartas), acessar http://localhost:8080/calculates
+7. Para embaralhar o baralho, acessar http://localhost:8080/shuffle (Baralhar o baralho sempre que jogar uma vez, para não acabarem as cartas.)
 
-8. Para embaralhar o baralho, acessar http://localhost:8080/shuffle
+8. Para mostrar a mão vencedora(com a soma maior de cartas), acessar http://localhost:8080/calculates
