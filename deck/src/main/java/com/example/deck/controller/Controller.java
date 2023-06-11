@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,22 +34,24 @@ public class Controller {
 	
 	public Controller() {};
 	
-	@RequestMapping("shuffle")
-	public DeckDTO shuffleDeck() {
-		return clientFeign.shuffleDeck();
+	
+	@RequestMapping("/{deck_id}/shuffle")
+	public DeckDTO shuffleDeck(@PathVariable("deck_id") String deck_id) {
+		return clientFeign.shuffleDeck(deck_id);
 	}
 	
-	public DrawCardsDTO drawCards() {
-		return clientFeign.drawCards();
+	@RequestMapping("/{deck_id}/draw/?count=20")
+	public DrawCardsDTO drawCards(@PathVariable("deck_id") String deck_id) {
+		return clientFeign.drawCards(deck_id);
 	}
 	
 
-	 @RequestMapping(value = "/calculates", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	 @RequestMapping(value = "/calculates/{deck_id}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	 @ResponseBody
-	 public String calculateBiggestSum() {
+	 public String calculateBiggestSum(@PathVariable("deck_id") String deck_id) {
 		       
 
-		DrawCardsDTO drawResponse = clientFeign.drawCards();
+		DrawCardsDTO drawResponse = clientFeign.drawCards(deck_id);
         CardDTO[] cards = drawResponse.getCards();
 
         int player1Sum = calculateSum(cards, 0, 4);

@@ -66,7 +66,7 @@ class DeckApplicationTests {
 	        cards[19] = new CardDTO("5");
 	        
 
-	        String result = controller.calculateBiggestSum();
+	        String result = controller.calculateBiggestSum("cprttszfjmj5");
 
 	        String expected = "Player 1 Cards: [KING, 2, 10, ACE, JACK]\n"
 	                + "Player 1 Sum: 36\n"

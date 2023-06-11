@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deck Shuffler</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Deck Shuffler</h1>
+        
+        <form id="shuffleForm">
+            <div class="form-group">
+                <label for="deckId">Deck ID:</label>
+                <input type="text" class="form-control" id="deckId" name="deckId" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Shuffle</button>
+        </form>
+        
+        <div id="shuffledDeck" style="display: none;">
+            <h3>Shuffled Deck:</h3>
+            <ul id="cardsList"></ul>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#shuffleForm').submit(function(event) {
+                event.preventDefault();
+                var deckId = $('#deckId').val();
+                shuffleDeck(deckId);
+            });
+        });
+
+        function shuffleDeck(deckId) {
+            $.get('/' + deckId + '/shuffle', function(data) {
+                $('#shuffledDeck').show();
+                var cardsList = $('#cardsList');
+                cardsList.empty();
+                data.cards.forEach(function(card) {
+                    cardsList.append('<li>' + card.value + '</li>');
+                });
+            }).fail(function() {
+                alert('Failed to shuffle the deck.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Card Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Deck Shuffler</h1>
+                
+        <form id="shuffleForm">
+            <div class="form-group">
+                <label for="deckId">Deck ID:</label>
+                <input type="text" class="form-control" id="deckId" name="deckId" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Shuffle</button>
+            
+        </form>
+             <div>
+            	<button class="btn btn-primary" id="createButton">Create New Deck</button>
+        	</div>
+ 		<div>
+            <button class="btn btn-primary" id="playButton">Calculate</button>
+        </div>
+        
+        <div id="result" style="display: none;">
+            <h3>Resultado:</h3>
+            <p id="resultText"></p>
+        </div>
+    </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#shuffleForm').submit(function(event) {
+                event.preventDefault();
+                var deckId = $('#deckId').val();
+                shuffleDeck(deckId);
+            });
+        });
+        
+        function getDeckId(deckId){
+        	return document.getElementById('deckId').value;        	
+        }
+
+        function shuffleDeck(deckId) {
+            $.get('/' + deckId + '/shuffle', function(data) {
+                $('#shuffledDeck').show();
+               	alert('O Baralho foi embaralhado!')
+            }).fail(function() {
+                alert('Failed to shuffle the deck.');
+            });
+        }
+        
+        $(document).ready(function() {
+            $('#createButton').click(function() {
+                createNewDeck();
+            });
+        });
+
+        function createNewDeck() {
+            $.get('/create', function(data) {
+                $('#deckInfo').show();
+                $('#deckId').text(data.deckId);
+                $('#remainingCards').text(data.remainingCards);
+                var idDeck = document.getElementById('deckId').value
+                print('Baralho' + getDeckId('#deckId') + 'Criado')
+            }).fail(function() {
+                alert('Failed to create a new deck.');
+            });
+        }
+        
+        $(document).ready(function() {
+            $('#playButton').click(function(event) {
+            	event.preventDefault();
+            	var deckId = $('#deckId').val();
+                calculateBiggestSum(deckId);
+            });
+        });
+        
+
+        function calculateBiggestSum(deckId) {
+            $.get('/calculates' + '/' + deckId, function(data) {
+                $('#result').show();
+                $('#resultText').text(data);
+            }).fail(function() {
+                alert('Failed to calculate the biggest sum.');
+            });
+        }
+    </script>
+</body>
+</html>
