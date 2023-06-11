@@ -120,8 +120,10 @@ public class Controller {
             switch (value) {
                 case "KING":
                 	sum += 13;
+                	break;
                 case "QUEEN":
                 	sum += 12;
+                	break;
                 case "JACK":
                     sum += 11;
                     break;
