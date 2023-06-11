@@ -22,6 +22,10 @@ spring.datasource.password=<senha_postgres>
 ```
 
 
-5. Voltar ao eclipse e rodar DeckApplication.java como projeto java.
+5. Voltar ao eclipse e rodar DeckApplication.java como Java Application.
 
-6. Com a aplicação rodando, acessar http://localhost:8080/calculates.
+6. Com a aplicação rodando, para criar um novo baralho e salvar seu id no seu database, acessar  http://localhost:8080/create
+
+7. Para mostrar a mão vencedora(com a soma maior de cartas), acessar http://localhost:8080/calculates
+
+8. Para embaralhar o baralho, acessar http://localhost:8080/shuffle
