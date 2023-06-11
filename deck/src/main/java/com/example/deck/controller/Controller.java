@@ -113,12 +113,14 @@ public class Controller {
             String value = cards[i].getValue();
             switch (value) {
                 case "KING":
+                	sum += 13;
                 case "QUEEN":
+                	sum += 12;
                 case "JACK":
-                    sum += 10;
+                    sum += 11;
                     break;
                 case "ACE":
-                    sum += 11;
+                    sum += 1;
                     break;
                 default:
                     sum += Integer.parseInt(value);
