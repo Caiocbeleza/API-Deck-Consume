@@ -28,6 +28,11 @@
             <h3>Resultado:</h3>
             <p id="resultText"></p>
         </div>
+        
+        <div id="resultNewDeck" style="display: none;">
+            <h3>Novo Deck id:</h3>
+            <p id="resultTextNewDeck"></p>
+        </div>
     </div>
     </div>
     
@@ -56,17 +61,16 @@
         
         $(document).ready(function() {
             $('#createButton').click(function() {
+            	var deckId = $('#deckId').val();
                 createNewDeck();
             });
         });
 
         function createNewDeck() {
             $.get('/create', function(data) {
-                $('#deckInfo').show();
-                $('#deckId').text(data.deckId);
-                $('#remainingCards').text(data.remainingCards);
-                var idDeck = document.getElementById('deckId').value
-                print('Baralho' + getDeckId('#deckId') + 'Criado')
+                $('#resultNewDeck').show();
+                $('#resultTextNewDeck').text(data);
+                //alert('Baralho Criado!');
             }).fail(function() {
                 alert('Failed to create a new deck.');
             });
