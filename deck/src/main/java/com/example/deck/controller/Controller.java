@@ -62,47 +62,53 @@ public class Controller {
 //		
 //		return sum;
 //	}
-	
-	private int getValueAsNumber(String value) {
-		if(value.equals("ACE")) {
-			return 1;
-		}
-		if(value.equals("JACK")) {
-			return 11;
-		}
-		if(value.equals("QUEEN")) {
-			return 12;
-		}
-		if(value.equals("KING")) {
-			return 13;
-		}
-		else {
-			return Integer.parseInt(value);
-		}
-		
-	}
+//	
+//	private int getValueAsNumber(String value) {
+//		if(value.equals("ACE")) {
+//			return 1;
+//		}
+//		if(value.equals("JACK")) {
+//			return 11;
+//		}
+//		if(value.equals("QUEEN")) {
+//			return 12;
+//		}
+//		if(value.equals("KING")) {
+//			return 13;
+//		}
+//		else {
+//			return Integer.parseInt(value);
+//		}
+//		
+//	}
 	
 	 @RequestMapping(value = "/calculates", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	 @ResponseBody
 	 public String calculateBiggestSum() {
-		
-		DrawCardsDTO draw =  this.drawCards();
-		CardDTO[] cardsDto = draw.getCards();
-       
+		       
 
-		DrawCardsDTO drawResponse = clientFeign.drawCards(); // Draw 20 cards
+		DrawCardsDTO drawResponse = clientFeign.drawCards();
         CardDTO[] cards = drawResponse.getCards();
 
         int player1Sum = calculateSum(cards, 0, 4);
         int player2Sum = calculateSum(cards, 5, 9);
         int player3Sum = calculateSum(cards, 10, 14);
         int player4Sum = calculateSum(cards, 15, 19);
+        
+        List<String> player1Cards = getCards(cards, 0, 4);
+        List<String> player2Cards = getCards(cards, 5, 9);
+        List<String> player3Cards = getCards(cards, 10, 14);
+        List<String> player4Cards = getCards(cards, 15, 19);
 
         int maxSum = Math.max(Math.max(player1Sum, player2Sum), Math.max(player3Sum, player4Sum));
 
-        return "Player 1 Sum: " + player1Sum + "\n"
+        return "Player 1 Cards: " + player1Cards + "\n"
+        		+ "Player 1 Sum: " + player1Sum + "\n"
+        		+ "Player 2 Cards: " + player2Cards + "\n"
                 + "Player 2 Sum: " + player2Sum + "\n"
+                + "Player 3 Cards: " + player3Cards + "\n"
                 + "Player 3 Sum: " + player3Sum + "\n"
+                + "Player 4 Cards: " + player4Cards + "\n"
                 + "Player 4 Sum: " + player4Sum + "\n"
                 + "Biggest Sum: " + maxSum;
     }
@@ -128,6 +134,25 @@ public class Controller {
             }
         }
         return sum;
+    }
+    
+    private List<String> getCards(CardDTO[] cards, int start, int end) {
+    	List<String> values = new ArrayList<String>();
+        for (int i = start; i <= end; i++) {
+            String value = cards[i].getValue();
+            values.add(value);
+        }
+        return values;
+    }
+    
+    public Deck newDeck() {
+    	return clientFeign.createNewDeck();
+    }
+    
+    @GetMapping("/create")
+    public String createNewDeck() {
+    	String deck_id = deckService.createNewDeck();
+        return deck_id;
     }
 	
 	

@@ -10,21 +10,15 @@ public class Deck {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "shuffled")
-	private Boolean shuffled;	
 	
 	@Column(name = "deck_id")
 	private String deck_id;
 	
-	@Column(name = "remaining")
-	private Integer remaining;
 	
 	public Deck() {}
 	
-	public Deck(Boolean shuffled, String deck_id, Integer remaining) {
-		this.shuffled = shuffled;
+	public Deck(String deck_id) {
 		this.deck_id = deck_id;
-		this.remaining = remaining;		
 	}
 
 	public Long getId() {
@@ -35,14 +29,6 @@ public class Deck {
 		this.id = id;
 	}
 
-	public Boolean getShuffled() {
-		return shuffled;
-	}
-
-	public void setShuffled(Boolean shuffled) {
-		this.shuffled = shuffled;
-	}
-
 	public String getDeck_id() {
 		return deck_id;
 	}
@@ -51,17 +37,9 @@ public class Deck {
 		this.deck_id = deck_id;
 	}
 
-	public Integer getRemaining() {
-		return remaining;
-	}
-
-	public void setRemaining(Integer remaining) {
-		this.remaining = remaining;
-	}
-
 	@Override
 	public String toString() {
-		return "Deck [id=" + id + ", shuffled=" + shuffled + ", deck_id=" + deck_id + ", remaining=" + remaining + "]";
+		return "Deck [id=" + id + ", deck_id=" + deck_id + "]";
 	}
 	
 	

@@ -9,16 +9,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.deck.DTO.DeckDTO;
 import com.example.deck.DTO.DrawCardsDTO;
+import com.example.deck.model.Deck;
 import com.example.deck.DTO.CardDTO;
 
-@FeignClient(name = "deck", url = "https://deckofcardsapi.com/api/deck/0o6545th6v9c")
+@FeignClient(name = "deck", url = "https://deckofcardsapi.com/api/deck")
 public interface ClientFeign {
 	
-	@GetMapping(value = "/shuffle")
+	@GetMapping(value = "/0o6545th6v9c/shuffle")
 	DeckDTO shuffleDeck();
 	
-	@GetMapping(value = "/draw/?count=20")
+	@GetMapping(value = "/ql1kxeevwto1/draw/?count=20")
 	DrawCardsDTO drawCards();
+	
+	@GetMapping(value = "/new")
+	Deck createNewDeck();
 	
 
 }

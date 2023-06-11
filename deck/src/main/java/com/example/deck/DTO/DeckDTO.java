@@ -10,31 +10,23 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class DeckDTO {
 	
-	private Boolean success;
+	private Long id;
 	private String deck_id;
-	private Boolean shuffled;
-	private Integer remaining;
 	
-	public DeckDTO(Boolean success, String deck_id, Boolean shuffled, Integer remaining) {
-		this.success = success;
+	public DeckDTO() {}
+	
+	public DeckDTO(String deck_id) {
 		this.deck_id = deck_id;
-		this.shuffled = shuffled;
-		this.remaining = remaining;
 	}
 	
-	
-	
-	public Boolean getSuccess() {
-		return success;
+
+	public Long getId() {
+		return id;
 	}
 
-
-
-	public void setSuccess(Boolean success) {
-		this.success = success;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-
 
 	public String getDeck_id() {
 		return deck_id;
@@ -48,34 +40,11 @@ public class DeckDTO {
 
 
 
-	public Boolean getShuffled() {
-		return shuffled;
-	}
-
-
-
-	public void setShuffled(Boolean shuffled) {
-		this.shuffled = shuffled;
-	}
-
-
-
-	public Integer getRemaining() {
-		return remaining;
-	}
-
-
-
-	public void setRemaining(Integer remaining) {
-		this.remaining = remaining;
-	}
-
 
 
 	@Override
 	public String toString() {
-		return "DeckDTO [success=" + success + ", deck_id=" + deck_id + ", shuffled=" + shuffled + ", remaining="
-				+ remaining + "]";
+		return "DeckDTO [deck_id=" + deck_id  + "]";
 	}
 
 }
