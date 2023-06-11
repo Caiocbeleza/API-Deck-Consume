@@ -16,6 +16,10 @@ public class CardDTO {
 	private String value;
 	private String suit;
 	
+	public CardDTO(String value) {
+		this.value = value;
+		
+	}
 	
 	public String getCode() {
 		return code;

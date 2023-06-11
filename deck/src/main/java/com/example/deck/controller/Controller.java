@@ -1,15 +1,11 @@
 package com.example.deck.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,11 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.deck.DTO.CardDTO;
 import com.example.deck.DTO.DeckDTO;
 import com.example.deck.DTO.DrawCardsDTO;
-import com.example.deck.Enum.Cards;
-import com.example.deck.Enum.Cards.CardsEnum;
 import com.example.deck.client.ClientFeign;
 import com.example.deck.model.Deck;
-import com.example.deck.repository.DeckRepository;
 import com.example.deck.service.DeckService;
 
 import lombok.AllArgsConstructor;
@@ -37,8 +30,8 @@ public class Controller {
 	@Autowired
 	private DeckService deckService;
 	
-	@Autowired
-	private DeckRepository deckRepository;
+	
+	public Controller() {};
 	
 	@RequestMapping("shuffle")
 	public DeckDTO shuffleDeck() {
@@ -49,39 +42,7 @@ public class Controller {
 		return clientFeign.drawCards();
 	}
 	
-//	@RequestMapping("sum")
-//	public Integer sumHand() {
-//		DrawCardsDTO draw =  this.drawCards();
-//		List<CardDTO> cards = draw.getCards();
-//		int sum = 0;
-//		
-//		for(CardDTO card : cards) {
-//			sum += getValueAsNumber(card.getValue());
-//			System.out.println(card.getValue());
-//		}
-//		
-//		return sum;
-//	}
-//	
-//	private int getValueAsNumber(String value) {
-//		if(value.equals("ACE")) {
-//			return 1;
-//		}
-//		if(value.equals("JACK")) {
-//			return 11;
-//		}
-//		if(value.equals("QUEEN")) {
-//			return 12;
-//		}
-//		if(value.equals("KING")) {
-//			return 13;
-//		}
-//		else {
-//			return Integer.parseInt(value);
-//		}
-//		
-//	}
-	
+
 	 @RequestMapping(value = "/calculates", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	 @ResponseBody
 	 public String calculateBiggestSum() {
@@ -101,6 +62,9 @@ public class Controller {
         List<String> player4Cards = getCards(cards, 15, 19);
 
         int maxSum = Math.max(Math.max(player1Sum, player2Sum), Math.max(player3Sum, player4Sum));
+        
+        if (player1Sum == player2Sum || player1Sum == player3Sum || player1Sum == player4Sum ||
+                player2Sum == player3Sum || player2Sum == player4Sum || player3Sum == player4Sum) {      
 
         return "Player 1 Cards: " + player1Cards + "\n"
         		+ "Player 1 Sum: " + player1Sum + "\n"
@@ -111,9 +75,25 @@ public class Controller {
                 + "Player 4 Cards: " + player4Cards + "\n"
                 + "Player 4 Sum: " + player4Sum + "\n"
                 + "Biggest Sum: " + maxSum;
+        }
+        
+        else {
+        	String winner = "";
+        	if (player1Sum == maxSum) {
+                winner = "O Vencedor é Jogador 1 " + "com " + maxSum + " pontos!";
+            } else if (player2Sum == maxSum) {
+            	winner = "O Vencedor é Jogador 2 " + "com " + maxSum + " pontos!";
+            } else if (player3Sum == maxSum) {
+            	winner = "O Vencedor é Jogador 3 " + "com " + maxSum + " pontos!";
+            } else if (player4Sum == maxSum) {
+            	winner = "O Vencedor é Jogador 4 " + "com " + maxSum + " pontos!";
+            }
+        	
+        	return winner;
+        }
     }
 
-    private int calculateSum(CardDTO[] cards, int start, int end) {
+    public int calculateSum(CardDTO[] cards, int start, int end) {
         int sum = 0;
         for (int i = start; i <= end; i++) {
             String value = cards[i].getValue();
@@ -138,7 +118,7 @@ public class Controller {
         return sum;
     }
     
-    private List<String> getCards(CardDTO[] cards, int start, int end) {
+    public List<String> getCards(CardDTO[] cards, int start, int end) {
     	List<String> values = new ArrayList<String>();
         for (int i = start; i <= end; i++) {
             String value = cards[i].getValue();
