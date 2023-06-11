@@ -5,11 +5,14 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.deck.DTO.CardDTO;
@@ -42,24 +45,23 @@ public class Controller {
 		return clientFeign.shuffleDeck();
 	}
 	
-	@RequestMapping("draw")
 	public DrawCardsDTO drawCards() {
 		return clientFeign.drawCards();
 	}
 	
-	@RequestMapping("sum")
-	public Integer sumHand() {
-		DrawCardsDTO draw =  this.drawCards();
-		List<CardDTO> cards = draw.getCards();
-		int sum = 0;
-		
-		for(CardDTO card : cards) {
-			sum += getValueAsNumber(card.getValue());
-			System.out.println(card.getValue());
-		}
-		
-		return sum;
-	}
+//	@RequestMapping("sum")
+//	public Integer sumHand() {
+//		DrawCardsDTO draw =  this.drawCards();
+//		List<CardDTO> cards = draw.getCards();
+//		int sum = 0;
+//		
+//		for(CardDTO card : cards) {
+//			sum += getValueAsNumber(card.getValue());
+//			System.out.println(card.getValue());
+//		}
+//		
+//		return sum;
+//	}
 	
 	private int getValueAsNumber(String value) {
 		if(value.equals("ACE")) {
@@ -80,18 +82,51 @@ public class Controller {
 		
 	}
 	
-	@PostMapping("new-deck")
-	public ResponseEntity<Deck> createDeck(@RequestBody DeckDTO deck){
-		try {
-		deck = this.shuffleDeck();	
-		Deck _deck = deckRepository
-				.save(new Deck(deck.getShuffled(), deck.getDeck_id(),
-						deck.getRemaining()));
-		return new ResponseEntity<>(_deck, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	 @RequestMapping(value = "/calculates", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	 @ResponseBody
+	 public String calculateBiggestSum() {
+		
+		DrawCardsDTO draw =  this.drawCards();
+		CardDTO[] cardsDto = draw.getCards();
+       
+
+		DrawCardsDTO drawResponse = clientFeign.drawCards(); // Draw 20 cards
+        CardDTO[] cards = drawResponse.getCards();
+
+        int player1Sum = calculateSum(cards, 0, 4);
+        int player2Sum = calculateSum(cards, 5, 9);
+        int player3Sum = calculateSum(cards, 10, 14);
+        int player4Sum = calculateSum(cards, 15, 19);
+
+        int maxSum = Math.max(Math.max(player1Sum, player2Sum), Math.max(player3Sum, player4Sum));
+
+        return "Player 1 Sum: " + player1Sum + "\n"
+                + "Player 2 Sum: " + player2Sum + "\n"
+                + "Player 3 Sum: " + player3Sum + "\n"
+                + "Player 4 Sum: " + player4Sum + "\n"
+                + "Biggest Sum: " + maxSum;
+    }
+
+    private int calculateSum(CardDTO[] cards, int start, int end) {
+        int sum = 0;
+        for (int i = start; i <= end; i++) {
+            String value = cards[i].getValue();
+            switch (value) {
+                case "KING":
+                case "QUEEN":
+                case "JACK":
+                    sum += 10;
+                    break;
+                case "ACE":
+                    sum += 11;
+                    break;
+                default:
+                    sum += Integer.parseInt(value);
+                    break;
+            }
+        }
+        return sum;
+    }
 	
 	
 	

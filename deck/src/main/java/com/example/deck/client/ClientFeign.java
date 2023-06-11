@@ -17,7 +17,7 @@ public interface ClientFeign {
 	@GetMapping(value = "/shuffle")
 	DeckDTO shuffleDeck();
 	
-	@GetMapping(value = "/draw/?count=5")
+	@GetMapping(value = "/draw/?count=20")
 	DrawCardsDTO drawCards();
 	
 
