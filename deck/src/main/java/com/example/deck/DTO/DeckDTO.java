@@ -1,18 +1,24 @@
 package com.example.deck.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
 
+@Jacksonized
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeckDTO {
 	
+	@JsonProperty("id")
 	private Long id;
+	@JsonProperty("deck_id")
 	private String deck_id;
 	
 	public DeckDTO() {}
