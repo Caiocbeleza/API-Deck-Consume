@@ -40,3 +40,8 @@ spring.datasource.password=<senha_postgres>
 
 10.3 Para mostrar a mão vencedora(com a soma maior de cartas), acessar: http://localhost:8080/calculates
 ```
+11. Para rodar os testes unitários:
+```
+src/test/java -> DeckApplicationTests.Java -> Run As -> JUnit Test
+
+```

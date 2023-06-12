@@ -71,21 +71,32 @@ public class Controller {
 
         int maxSum = Math.max(Math.max(player1Sum, player2Sum), Math.max(player3Sum, player4Sum));
         
-        if (player1Sum == player2Sum || player1Sum == player3Sum || player1Sum == player4Sum ||
-                player2Sum == player3Sum || player2Sum == player4Sum || player3Sum == player4Sum) {      
-
-        return "Player 1 Cards: " + player1Cards + "\n"
-        		+ "Player 1 Sum: " + player1Sum + "\n"
-        		+ "Player 2 Cards: " + player2Cards + "\n"
-                + "Player 2 Sum: " + player2Sum + "\n"
-                + "Player 3 Cards: " + player3Cards + "\n"
-                + "Player 3 Sum: " + player3Sum + "\n"
-                + "Player 4 Cards: " + player4Cards + "\n"
-                + "Player 4 Sum: " + player4Sum + "\n"
-                + "Biggest Sum: " + maxSum;
+     // Check if there are two or more players with the biggest sum
+        int countMaxSum = 0;
+        if (player1Sum == maxSum) {
+            countMaxSum++;
         }
-        
-        else {
+        if (player2Sum == maxSum) {
+            countMaxSum++;
+        }
+        if (player3Sum == maxSum) {
+            countMaxSum++;
+        }
+        if (player4Sum == maxSum) {
+            countMaxSum++;
+        }
+
+        if (countMaxSum >= 2) {
+        	 return "Player 1 Cards: " + player1Cards + "\n"
+             		+ "Player 1 Sum: " + player1Sum + "\n"
+             		+ "Player 2 Cards: " + player2Cards + "\n"
+                     + "Player 2 Sum: " + player2Sum + "\n"
+                     + "Player 3 Cards: " + player3Cards + "\n"
+                     + "Player 3 Sum: " + player3Sum + "\n"
+                     + "Player 4 Cards: " + player4Cards + "\n"
+                     + "Player 4 Sum: " + player4Sum + "\n"
+                     + "Biggest Sum: " + maxSum;        
+       }else {
         	String winner = "";
         	if (player1Sum == maxSum) {
                 winner = "O Vencedor é o Jogador 1 " + "com " + maxSum + " pontos!";
