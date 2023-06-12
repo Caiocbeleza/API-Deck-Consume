@@ -20,6 +20,8 @@ public class DrawCardsDTO {
 	@JsonProperty("cards")
 	private CardDTO[] cards;
 	
+	public DrawCardsDTO() {}
+	
 	public DrawCardsDTO(CardDTO[] cards) {
 		this.cards = cards;
 	}

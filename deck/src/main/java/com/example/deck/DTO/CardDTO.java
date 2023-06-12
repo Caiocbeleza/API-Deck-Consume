@@ -20,6 +20,8 @@ public class CardDTO {
 	@JsonProperty("value")
 	private String value;
 
+	public CardDTO() {		
+	}
 	
 	public CardDTO(String value) {
 		this.value = value;
