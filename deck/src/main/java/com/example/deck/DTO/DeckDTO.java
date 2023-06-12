@@ -3,11 +3,13 @@ package com.example.deck.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@Getter
+@Builder
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@AllArgsConstructor
 public class DeckDTO {
 	
 	private Long id;

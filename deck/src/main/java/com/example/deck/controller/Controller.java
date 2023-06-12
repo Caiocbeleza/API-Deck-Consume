@@ -35,8 +35,8 @@ public class Controller {
 	public Controller() {};
 	
 	
-	public Controller(ClientFeign clientFeign2) {
-		this.clientFeign = clientFeign2;
+	public Controller(ClientFeign clientFeign) {
+		this.clientFeign = clientFeign;
 	}
 
 
