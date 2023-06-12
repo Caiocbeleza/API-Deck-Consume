@@ -35,6 +35,11 @@ public class Controller {
 	public Controller() {};
 	
 	
+	public Controller(ClientFeign clientFeign2) {
+		this.clientFeign = clientFeign2;
+	}
+
+
 	@RequestMapping("/{deck_id}/shuffle")
 	public DeckDTO shuffleDeck(@PathVariable("deck_id") String deck_id) {
 		return clientFeign.shuffleDeck(deck_id);

@@ -15,6 +15,7 @@ import com.example.deck.DTO.DrawCardsDTO;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -24,21 +25,21 @@ import java.util.List;
 
 @SpringBootTest
 class DeckApplicationTests {
-	@Mock
-	private ClientFeign clientFeign;
 	
-	@Mock
+	private ClientFeign clientFeign;
 	private Controller controller;
 	
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.openMocks(this);
-		controller = new Controller();
+		clientFeign = mock(ClientFeign.class);
+		controller = new Controller(clientFeign);
 	}
 	
 	 @ExtendWith(MockitoExtension.class)
 	 @Test
 	    public void testCalculateBiggestSum() {
+		 	DrawCardsDTO drawResponse = new DrawCardsDTO();	 
 		 
 	        // Mocked cards array
 	        CardDTO[] cards = new CardDTO[20];
@@ -65,18 +66,13 @@ class DeckApplicationTests {
 	        cards[18] = new CardDTO("7");
 	        cards[19] = new CardDTO("5");
 	        
+	        drawResponse.setCards(cards);
+	        when(clientFeign.drawCards("deck_id")).thenReturn(drawResponse);
+	        
 
-	        String result = controller.calculateBiggestSum("cprttszfjmj5");
+	        String result = controller.calculateBiggestSum("deck_id");
 
-	        String expected = "Player 1 Cards: [KING, 2, 10, ACE, JACK]\n"
-	                + "Player 1 Sum: 36\n"
-	                + "Player 2 Cards: [5, QUEEN, 3, 8, KING]\n"
-	                + "Player 2 Sum: 26\n"
-	                + "Player 3 Cards: [4, 6, 9, ACE, JACK]\n"
-	                + "Player 3 Sum: 34\n"
-	                + "Player 4 Cards: [KING, QUEEN, ACE, 7, 5]\n"
-	                + "Player 4 Sum: 36\n"
-	                + "Biggest Sum: 36";
+	        String expected = "O Vencedor é o Jogador 2 com 41 pontos!";
 
 	        assertEquals(expected, result);
 	    }
