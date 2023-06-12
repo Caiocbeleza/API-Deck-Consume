@@ -3,34 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Card Game</title>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-container button {
+            margin-top: 10px;
+        }
+
+        .result-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container" style="text-align:center">
+    <div class="container">
         <h1>Desafio das Cartas</h1>
-        <div class="btn-group">       
-        <form id="shuffleForm">        
-            <div class="form-group">
-                <label for="deckId">Deck ID:</label>
-                <input type="text" class="form-control" id="deckId" name="deckId">
+        <div class="btn-container">
+            <form id="shuffleForm">
+                <div class="form-group">
+                    <label for="deckId">Deck ID:</label>
+                    <input type="text" class="form-control" id="deckId" name="deckId">
+                </div>
+                <button type="submit" class="btn btn-primary">Baralhar</button>
+            </form>
+            <button class="btn btn-primary" id="playButton">Jogar</button>
+            <button class="btn btn-primary" id="createButton">Novo Baralho</button>
+        </div>
+        <div class="result-container">
+            <div id="result" style="display: none;">
+                <h3>Resultado:</h3>
+                <p id="resultText"></p>
             </div>
-            <button type="submit" class="btn btn-primary" style="display: inline-block;">Baralhar</button>
-            <button class="btn btn-primary" id="createButton">Novo Baralho</button> 		
-            <button class="btn btn-primary" id="playButton" >Jogar</button>            
-        </form>       
-        <div id="result" style="display: none;">
-            <h3>Resultado:</h3>
-            <p id="resultText"></p>
-        </div>
         
-        <div id="resultNewDeck" style="display: none;">
-            <h3>Novo Deck id:</h3>
-            <p id="resultTextNewDeck"></p>
+            <div id="resultNewDeck" style="display: none;">
+                <h3>Novo Deck id:</h3>
+                <p id="resultTextNewDeck"></p>
+            </div>
         </div>
-        </div>   
-        </div> 
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
