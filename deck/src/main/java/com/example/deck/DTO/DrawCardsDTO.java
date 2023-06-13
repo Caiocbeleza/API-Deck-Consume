@@ -1,7 +1,5 @@
 package com.example.deck.DTO;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +17,8 @@ public class DrawCardsDTO {
 	
 	@JsonProperty("cards")
 	private CardDTO[] cards;
+	
+	public DrawCardsDTO() {}
 	
 	public DrawCardsDTO(CardDTO[] cards) {
 		this.cards = cards;

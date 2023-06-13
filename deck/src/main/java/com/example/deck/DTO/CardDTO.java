@@ -1,6 +1,5 @@
 package com.example.deck.DTO;
 
-import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,6 +19,8 @@ public class CardDTO {
 	@JsonProperty("value")
 	private String value;
 
+	
+	public CardDTO() {}
 	
 	public CardDTO(String value) {
 		this.value = value;

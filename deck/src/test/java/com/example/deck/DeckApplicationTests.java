@@ -2,8 +2,6 @@ package com.example.deck;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.deck.client.ClientFeign;
@@ -12,7 +10,6 @@ import com.example.deck.DTO.CardDTO;
 import com.example.deck.DTO.DrawCardsDTO;
 
 
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
