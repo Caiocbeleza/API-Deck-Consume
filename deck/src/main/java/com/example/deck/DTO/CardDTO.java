@@ -19,6 +19,8 @@ public class CardDTO {
 	@JsonProperty("value")
 	private String value;
 
+	public CardDTO() {		
+	}
 	
 	public CardDTO() {}
 	
