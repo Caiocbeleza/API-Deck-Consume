@@ -1,4 +1,4 @@
-# desafio-tecnico
+# Deck Consumer
 
 ## Instruções para Rodar a aplicação 
 1. Clonar o repositório
